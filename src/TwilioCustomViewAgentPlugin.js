@@ -46,6 +46,13 @@ export default class TwilioCustomViewAgentPlugin extends FlexPlugin {
     flex.SideNav.Content.remove("queues-stats", {
       if: (props) => role.includes("agent"),
     });
+    flex.SideNav.Content.remove("admin", {
+      if: (props) => role.includes("agent"),
+    });
+
+    if(role.includes("agent"))
+      Actions.invokeAction("NavigateToView", { viewName: "agent-desktop" });
+
   }
 
   /**
