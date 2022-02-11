@@ -25,12 +25,8 @@ export default class TwilioCustomViewAgentPlugin extends FlexPlugin {
     const role = manager.workerClient.attributes.roles;
 
     console.log(`Role: ${JSON.stringify(role)}`);
-
-    // flex.SideNav.Content.remove("agent-desktop", {
-    //   if: (props) =>
-    //     roleCustom === "Treinamento" || roleCustom === "Relatórios",
-    // });
     
+    //icones
     flex.SideNav.Content.remove("teams", {
       if: (props) => role.includes("agent"),
     });
@@ -48,12 +44,24 @@ export default class TwilioCustomViewAgentPlugin extends FlexPlugin {
     });
     flex.SideNav.Content.remove("admin", {
       if: (props) => role.includes("agent"),
+    });        
+    //paginas
+    flex.ViewCollection.Content.remove("teams", {
+      if: (props) => role.includes("agent"),
     });
-
-    if(role.includes("agent"))
-      Actions.invokeAction("NavigateToView", { viewName: "agent-desktop" });
-
-  }
+    flex.ViewCollection.Content.remove("admin", {
+      if: (props) => role.includes("agent"),
+    });
+    flex.ViewCollection.Content.remove("queues-stats", {
+      if: (props) => role.includes("agent"),
+    });
+    flex.ViewCollection.Content.remove("questionnaires", {
+      if: (props) => role.includes("agent"),
+    });
+    flex.ViewCollection.Content.remove("analyze", {
+      if: (props) => role.includes("agent"),
+    });
+}
 
   /**
    * Registers the plugin reducers
